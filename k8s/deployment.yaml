@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: goserver
+  labels:
+    app: goserver
+spec:
+  selector:
+    matchLabels:
+      app: goserver
+  replicas: 1
+  template:
+    metadata: 
+      labels: 
+        app: "goserver"
+    spec:
+      containers:
+        - name: goserver
+          image: "dcercilio/hello-go:v3"
+
+          resources:
+            requests:
+              cpu: 100m
+              memory: 20Mi
+            limits:
+              cpu: 500m
+              memory: 25Mi
+
+          volumeMounts: 
+            - mountPath: "/go/pvc"
+              name: goserver-volume
+      volumes:
+        - name: goserver-volume
+          persistentVolumeClaim: 
+            claimName: goserver-pvc

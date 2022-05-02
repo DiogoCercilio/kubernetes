@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: stateful-service-mysql # This name should be the same as the statefulset.yaml
+spec:
+  selector:
+    app: mysql
+  ports:
+    - port: 3306
+  clusterIP: None
